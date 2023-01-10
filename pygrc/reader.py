@@ -46,7 +46,7 @@ class Reader:
             rawdata = np.loadtxt(filepath)
             data = pd.DataFrame(rawdata, columns=columns)
             return data
-        elif pathlib.PurePosixPath(filepath).suffix == "csv":
+        elif pathlib.PurePosixPath(filepath).suffix == ".csv":
             data = pd.read_csv(filepath)
             return data
         else:

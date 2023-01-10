@@ -27,10 +27,18 @@ class Fit:
             data_y (tuple): input data on y axis
             *args (float): Takes initial parameter values
 
+
         """
         self.args = args
-        self.data_x = data_x.to_numpy()
-        self.data_y = data_y.to_numpy()
+        print(type(data_x))
+        if 'numpy' not in str(type(data_x)):
+            self.data_x = data_x.to_numpy()
+        else:
+            self.data_x = data_x
+        if 'numpy' not in str(type(data_y)):
+            self.data_y = data_y.to_numpy()
+        else:
+            self.data_y = data_y
 
     def fit_lsq(
         self,
@@ -48,6 +56,15 @@ class Fit:
             bools: to say if any parameters are fixed
         Returns:
             iminuit object
+
+        Example:
+
+        ```python
+        pygrc.Fit(x, y, 1,1).fit_lsq(function,[(-1,10),(-2,10)],.1)
+        ```
+        here we have two variables and two parameters (initial values of parameters is 1.)
+        where [..] are the limits for the two parameter and .1 is the error.
+
 
         """
         least_square = LeastSquares(self.data_x, self.data_y, err, function)
