@@ -8,7 +8,8 @@ import pathlib
 
 
 class Reader:
-    """Reader Class"""
+    """Reader Class
+    """
 
     def read(
         filepath: os.PathLike,
@@ -37,9 +38,12 @@ class Reader:
         Reading a file
 
         Args:
-            filepath : path of the file.
-            columns  : list of columns.
-            units    : dict for the units.
+
+        filepath : path of the file.
+
+        columns  : list of columns.
+
+        units    : dict for the units.
 
         """
         if pathlib.PurePosixPath(filepath).suffix == ".dat":
@@ -55,13 +59,13 @@ class Reader:
 
     def drop_columns(data: pd.DataFrame, columns: list):
         """
-        drop columns from the DataFrame
+        Drop columns from the DataFrame
 
         Args:
 
-            data  :  pandas dataFrame
+        data  :  pandas dataFrame
 
-            columns: list of columns to be droped
+        columns: list of columns to be droped
         """
         if len(columns) != 0:
             data = data.drop(columns=columns, axis=1)
@@ -70,10 +74,15 @@ class Reader:
     def read_corr(data: pd.DataFrame, row: int, column: int):
         """
         read a correlation matrix
+
         Args:
-            data  :  pandas dataFrame
-            row   :  number of row element
-            column   :  number of column element
+
+        data  :  pandas dataFrame.
+
+        row   :  number of row element.
+
+        column   :  number of column element.
+
         """
         return data.iloc[row, column]
 
@@ -82,7 +91,8 @@ class Reader:
         provides correlation matrix for the DataFrame
 
         Args:
-            data  :  pandas dataFrame
+
+        data  :  pandas dataFrame
         """
         data = data.dropna(axis=1, how="all")
         m_corr = data.corr(method="pearson")
@@ -91,7 +101,9 @@ class Reader:
     def len(data: pd.DataFrame):
         """
         number of rows in the dataframe
+
         Args:
-            data  :  pandas dataFrame
+
+        data  :  pandas dataFrame
         """
         return len(data)
