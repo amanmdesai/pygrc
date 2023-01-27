@@ -17,3 +17,7 @@ A package to read SPARC data for Galactic Rotation Curves
 ```bash
 pip install git+https:https://github.com/amanmdesai/pygrc
 ```
+
+SPARC Data can be obtained from here: 
+http://astroweb.cwru.edu/SPARC/
+
