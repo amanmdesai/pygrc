@@ -5,7 +5,10 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sb
 from pygrc.reader import Reader
-
+import iminuit
+import numpy as np
+from iminuit import Minuit
+import typing as tp
 
 class Plot:
     """Class for Generating Matplotlib Plots"""
@@ -181,3 +184,27 @@ class Plot:
         plt.rcParams["figure.dpi"] = 300
         plt.rcParams["savefig.dpi"] = 300
         self.plot(data, "Rad", ["Vobs"])
+
+    def plot_grc(self, data: pd.DataFrame, m: Minuit,function: tp.Callable, name: str, title: str, ax):
+        """
+        function to plot two differeny y data on the same x axis.
+        Args:
+            data  (pd.DataFrame) : data
+            m : Minuit  Object
+            function: the definition of function without parameters values
+            label: string name of the galaxy
+        """
+        plt.rcParams["figure.dpi"] = 300
+        plt.rcParams["savefig.dpi"] = 300
+        handles, labels = plt.gca().get_legend_handles_labels()
+
+        x = np.linspace(data['Rad'].min(),data['Rad'].max(),200)
+
+        if 'Data' not in labels:
+            ax.plot(data['Rad'],data['Vobs'],marker='o',linestyle='none',label='Data')
+        ax.plot(x, function(x,*m.values),linestyle='--',label=name)
+        plt.legend()
+        ax.set_xlabel('Distance (kpc)')
+        ax.set_ylabel('Velocity (Km/s)')
+        ax.set_title(title)
+        #plt.savefig(label+'rot.pdf')
