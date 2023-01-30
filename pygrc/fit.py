@@ -78,7 +78,7 @@ class Fit:
         m.minos()
         return m
 
-    def get_profile(m: Minuit, par: str):
+    def get_profile(self,m: Minuit, par: str):
         """
         function to get profile curve for a given parameter
         Args:
@@ -98,7 +98,7 @@ class Fit:
         ax.set_title("Profim.pos2varle Likelihood for parameter " + var)
         fig.savefig(par + "_profile.pdf")
 
-    def draw_contours(m: Minuit, var: list):
+    def draw_contours(self,m: Minuit, var: tp.Union[str, tp.Sequence[str]]):
         """
         function to get profile curve for a given parameter
         Args:
@@ -111,12 +111,15 @@ class Fit:
         if len(var) <= 1:
             raise ValueError("Takes two or more paramters as input")
 
+        _var1list = []
         for _var in var:
             if _var not in m.pos2var:
+                print(_var)
                 raise ValueError("Please Enter a valid variable")
         for _var1 in var:
+            _var1list.append(_var1)
             for _var2 in var:
-                if _var1 == _var2:
+                if _var1 == _var2 or _var2 in _var1list:
                     continue
                 fig, ax = plt.subplots()
                 ax = m.draw_mncontour(_var1, _var2, cl=[0.68, 0.95])
