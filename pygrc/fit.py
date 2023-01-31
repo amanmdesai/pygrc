@@ -92,10 +92,11 @@ class Fit:
         if par not in m.pos2var:
             raise ValueError("Please Enter a valid variable")
         fig, ax = plt.subplots()
-        ax = m.draw_mnprofile(par, band=True, text=False)
+        data = m.draw_mnprofile(par, band=True, text=False)
+        ax.plot(data[0],data[1])
         ax.set_xlabel(par)
-        ax.set_xlabel("Least Square")
-        ax.set_title("Profim.pos2varle Likelihood for parameter " + var)
+        ax.set_ylabel("Least Square")
+        ax.set_title("Log Likelihood for parameter " + par)
         fig.savefig(par + "_profile.pdf")
 
     def draw_contours(self,m: Minuit, var: tp.Union[str, tp.Sequence[str]]):
