@@ -26,7 +26,7 @@ class Plot:
             "SBbul": "L/pc2",
         }
 
-    def plot(self, data: pd.DataFrame, column_x: str, column_y: str):
+    def plot(self, data: pd.DataFrame, column_x: str, column_y: str):#, save_name: str =""):
         """
         function to plot data on x axis and y axis.
         Args:
@@ -68,10 +68,10 @@ class Plot:
             + " "
             + self.units_dict[column_x]
         )
-        fig.savefig(column_x + "_" + column_y + ".pdf")
+        fig.savefig(column_x + "_" + column_y  + ".pdf")
         plt.show()
 
-    def overlap(self, data: pd.DataFrame, column_x: str, column_y: list, y_label: str = ""):
+    def overlap(self, data: pd.DataFrame, column_x: str, column_y: list, y_label: str = "", save_name: str =""):
         """
         function to plot two differeny y data on the same x axis.
         Args:
@@ -104,7 +104,7 @@ class Plot:
             ax.set_xlabel(column_x + " " + self.units_dict[column_x])
             ax.set_ylabel(y_label)
             plt.legend()
-        fig.savefig(column_x + "_" + "vars" + ".pdf")
+        fig.savefig(column_x + "_" + "vars" + "_"+save_name+".pdf")
 
     def plot_all(
         self,
@@ -158,7 +158,7 @@ class Plot:
                     fig.savefig(column_x + "_" + column_y + ".pdf")
                     plt.show()
 
-    def corr_map(data: pd.DataFrame):
+    def corr_map(self,data: pd.DataFrame):
         """
         function to plot correlation map.
         Args:
@@ -173,7 +173,7 @@ class Plot:
         fig.savefig('correlation.pdf')
         plt.show()
 
-    def rotation(data: pd.DataFrame):
+    def rotation(self,data: pd.DataFrame):
         """
         function for plotting galaxy rotation curve
         Args:
@@ -207,4 +207,4 @@ class Plot:
         ax.set_xlabel('Distance (kpc)')
         ax.set_ylabel('Velocity (Km/s)')
         ax.set_title(title)
-        #plt.savefig(label+'rot.pdf')
+        plt.savefig(title+'rot_fit.pdf')
