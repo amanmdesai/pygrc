@@ -103,6 +103,7 @@ class Plot:
             ax.set_xlim(min_x, max_x * 1.1)
             ax.set_xlabel(column_x + " " + self.units_dict[column_x])
             ax.set_ylabel(y_label)
+            ax.set_title(save_name)
             plt.legend()
         fig.savefig(column_x + "_" + "vars" + "_"+save_name+".pdf")
 
