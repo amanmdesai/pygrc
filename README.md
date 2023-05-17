@@ -11,7 +11,8 @@ Aman Desai
 
 ##  Description
 
-A package to read SPARC data for Galactic Rotation Curves
+A package to read and fit SPARC data for Galactic Rotation Curves
+
 
 ## Installation
 
