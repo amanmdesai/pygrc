@@ -40,7 +40,8 @@ df
 
 - 3.  Some sample function
 ```python
-# mond and mass function are based on Galaxies 2018, 6(3), 70; https://doi.org/10.3390/galaxies6030070
+
+mond and mass function are based on Galaxies 2018, 6(3), 70; https://doi.org/10.3390/galaxies6030070
 
 def mass(r, M0, R0):
     return M0*(1- (1+(r/R0))*np.exp(-r/R0))
