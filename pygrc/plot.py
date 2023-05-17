@@ -10,6 +10,7 @@ import numpy as np
 from iminuit import Minuit
 import typing as tp
 
+
 class Plot:
     """Class for Generating Matplotlib Plots"""
 
@@ -26,7 +27,9 @@ class Plot:
             "SBbul": "L/pc2",
         }
 
-    def plot(self, data: pd.DataFrame, column_x: str, column_y: str):#, save_name: str =""):
+    def plot(
+        self, data: pd.DataFrame, column_x: str, column_y: str
+    ):  # , save_name: str =""):
         """
         function to plot data on x axis and y axis.
         Args:
@@ -68,10 +71,18 @@ class Plot:
             + " "
             + self.units_dict[column_x]
         )
-        fig.savefig(column_x + "_" + column_y  + ".pdf")
+        fig.savefig(column_x + "_" + column_y + ".pdf")
         plt.show()
 
-    def overlap(self, data: pd.DataFrame, column_x: str, column_y: list, y_label: str = "", save_name: str =""):
+    def overlap(
+        self,
+        data: pd.DataFrame,
+        column_x: str,
+        column_y: list,
+        x_label: str = "",
+        y_label: str = "",
+        save_name: str = "",
+    ):
         """
         function to plot two differeny y data on the same x axis.
         Args:
@@ -101,11 +112,12 @@ class Plot:
                 label=column_y,
             )
             ax.set_xlim(min_x, max_x * 1.1)
-            ax.set_xlabel(column_x + " " + self.units_dict[column_x])
+            # ax.set_xlabel(column_x + " " + self.units_dict[column_x])
+            ax.set_xlabel(x_label)
             ax.set_ylabel(y_label)
             ax.set_title(save_name)
             plt.legend()
-        fig.savefig(column_x + "_" + "vars" + "_"+save_name+".pdf")
+        fig.savefig(column_x + "_" + "vars" + "_" + save_name + ".pdf")
 
     def plot_all(
         self,
@@ -159,7 +171,7 @@ class Plot:
                     fig.savefig(column_x + "_" + column_y + ".pdf")
                     plt.show()
 
-    def corr_map(self,data: pd.DataFrame):
+    def corr_map(self, data: pd.DataFrame):
         """
         function to plot correlation map.
         Args:
@@ -171,10 +183,10 @@ class Plot:
         m_corr = Reader.correlation(data)
         fig, ax = plt.subplots()
         sb.heatmap(m_corr, vmax=0.3, center=0, square=True, linewidths=0.5)
-        fig.savefig('correlation.pdf')
+        fig.savefig("correlation.pdf")
         plt.show()
 
-    def rotation(self,data: pd.DataFrame):
+    def rotation(self, data: pd.DataFrame):
         """
         function for plotting galaxy rotation curve
         Args:
@@ -186,7 +198,15 @@ class Plot:
         plt.rcParams["savefig.dpi"] = 300
         self.plot(data, "Rad", ["Vobs"])
 
-    def plot_grc(self, data: pd.DataFrame, m: Minuit,function: tp.Callable, name: str, title: str, ax):
+    def plot_grc(
+        self,
+        data: pd.DataFrame,
+        m: Minuit,
+        function: tp.Callable,
+        name: str,
+        title: str,
+        ax,
+    ):
         """
         function to plot two differeny y data on the same x axis.
         Args:
@@ -199,13 +219,15 @@ class Plot:
         plt.rcParams["savefig.dpi"] = 300
         handles, labels = plt.gca().get_legend_handles_labels()
 
-        x = np.linspace(data['Rad'].min(),data['Rad'].max(),200)
+        x = np.linspace(data["Rad"].min(), data["Rad"].max(), 200)
 
-        if 'Data' not in labels:
-            ax.plot(data['Rad'],data['Vobs'],marker='o',linestyle='none',label='Data')
-        ax.plot(x, function(x,*m.values),linestyle='--',label=name)
+        if "Data" not in labels:
+            ax.plot(
+                data["Rad"], data["Vobs"], marker="o", linestyle="none", label="Data"
+            )
+        ax.plot(x, function(x, *m.values), linestyle="--", label=name)
         plt.legend()
-        ax.set_xlabel('Distance (kpc)')
-        ax.set_ylabel('Velocity (Km/s)')
+        ax.set_xlabel("Distance (kpc)")
+        ax.set_ylabel("Velocity (Km/s)")
         ax.set_title(title)
-        plt.savefig(title+'rot_fit.pdf')
+        plt.savefig(title + "rot_fit.pdf")

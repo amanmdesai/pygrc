@@ -15,6 +15,7 @@ class Fit:
     Class to make fitting easier
     relies on iminuit for fitting
     """
+
     def __init__(
         self,
         data_x: tp.Sequence,
@@ -31,11 +32,11 @@ class Fit:
         """
         self.args = args
         print(type(data_x))
-        if 'numpy' not in str(type(data_x)):
+        if "numpy" not in str(type(data_x)):
             self.data_x = data_x.to_numpy()
         else:
             self.data_x = data_x
-        if 'numpy' not in str(type(data_y)):
+        if "numpy" not in str(type(data_y)):
             self.data_y = data_y.to_numpy()
         else:
             self.data_y = data_y
@@ -78,7 +79,7 @@ class Fit:
         m.minos()
         return m
 
-    def get_profile(self,m: Minuit, par: str):
+    def get_profile(self, m: Minuit, par: str):
         """
         function to get profile curve for a given parameter
         Args:
@@ -93,13 +94,13 @@ class Fit:
             raise ValueError("Please Enter a valid variable")
         fig, ax = plt.subplots()
         data = m.draw_mnprofile(par, band=True, text=False)
-        ax.plot(data[0],data[1])
+        ax.plot(data[0], data[1])
         ax.set_xlabel(par)
         ax.set_ylabel("Least Square")
         ax.set_title("Log Likelihood for parameter " + par)
         fig.savefig(par + "_profile.pdf")
 
-    def draw_contours(self,m: Minuit, var: tp.Union[str, tp.Sequence[str]]):
+    def draw_contours(self, m: Minuit, var: tp.Union[str, tp.Sequence[str]]):
         """
         function to get profile curve for a given parameter
         Args:

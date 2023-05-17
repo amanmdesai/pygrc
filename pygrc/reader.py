@@ -8,8 +8,7 @@ import pathlib
 
 
 class Reader:
-    """Reader Class
-    """
+    """Reader Class"""
 
     def read(
         filepath: os.PathLike,
