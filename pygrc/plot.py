@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sb
 from pygrc.reader import Reader
-import iminuit
 import numpy as np
 from iminuit import Minuit
 import typing as tp
