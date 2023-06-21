@@ -4,7 +4,7 @@
 [![publish](https://github.com/amanmdesai/pygrc/actions/workflows/publish.yml/badge.svg)](https://github.com/amanmdesai/pygrc/actions/workflows/publish.yml)
 [![test](https://github.com/amanmdesai/pygrc/actions/workflows/test.yaml/badge.svg)](https://github.com/amanmdesai/pygrc/actions/workflows/test.yaml)
 [![PyPI Package latest release](https://img.shields.io/pypi/v/pygrc.svg)](https://pypi.python.org/pypi/pygrc)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7950550.svg)](https://doi.org/10.5281/zenodo.7950550)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7546312.svg)](https://doi.org/10.5281/zenodo.7546312)
 
 ## Author
 
