@@ -4,6 +4,7 @@
 [![publish](https://github.com/amanmdesai/pygrc/actions/workflows/publish.yml/badge.svg)](https://github.com/amanmdesai/pygrc/actions/workflows/publish.yml)
 [![test](https://github.com/amanmdesai/pygrc/actions/workflows/test.yaml/badge.svg)](https://github.com/amanmdesai/pygrc/actions/workflows/test.yaml)
 [![PyPI Package latest release](https://img.shields.io/pypi/v/pygrc.svg)](https://pypi.python.org/pypi/pygrc)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7950550.svg)](https://doi.org/10.5281/zenodo.7950550)
 
 ## Author
 
@@ -12,6 +13,67 @@ Aman Desai
 ##  Description
 
 A package to read and fit SPARC data for Galactic Rotation Curves
+
+
+Galaxy rotation curves are a class of plots which have velocity of the galactic objects on the y-axis and the x-axis represents their radial distances from the galactic center. 
+
+
+## Analysis Steps 
+
+We present the pygrc package to simpify testing new models against data as well as to make galaxy rotation curve analysis accessible to undergraduates. At present, this package is designed to read the SPARC Data (in particular the data stored under newton models). We have used pandas for reading data, iminuit for fitting the data and matplotlib for plotting.  The definition of model can be implemented by using functions defined in python language and by sharing these function via calls to pygrc package. The fitting procedure uses the least square approach as implemented in the iminuit package. 
+
+An example workflow to carry out analysis with pygrc is as follows: 
+
+-  Read data from the SPARC Dataset - which gives among other things, the observed rotation velocity and the distance of the object from the center of the galaxy.
+
+```python
+df = gr.Reader.read(filepath=<path to the file in double quotation>)
+```
+- (optional) Make some initial plots for visualization and understanding the SPARC data for the given galaxy.
+
+```python
+gr.Plot().overlap(df,"Rad",["Vobs","Vgas","Vbul","Vdisk"],"observed velocity")
+```
+
+- User needs to define mass distribution along with useful parameters (for example to define the mass density given in \ref{eq}, use: 
+
+```python
+	def mass(r, M0, R0):
+    return M0*(1- (1+(r/R0))*np.exp(-r/R0))
+```
+
+- User then defines a model whose compatibility with data is to be checked in the following way:
+
+```python
+def newton(r, M0, rc, R0,beta):
+    G = 4.30e-6  
+    m = mass(r,M0, R0)
+    f = G*m/r
+    return np.sqrt(f)*10e-3
+```
+
+- Fit the model with Data. First define the radius variable and its range. Then define the  
+
+
+```python
+r = np.linspace(1e-5,df["Rad"].max(),2000)
+```
+
+Then define the variables to fit and the initial values to be used as follows:
+
+```python
+m_1=gr.Fit(df["Rad"],df["Vobs"],1.,1.,3,.35,1.)
+```
+
+where initial parameters values are in the same order as defined in the function *newton*. In the next step we define the range to scan for the parameters as well as define the error steps and finally define which parameters needs to be scanned and which are taken as fixed.
+
+```python
+m_1.fit_lsq(f, [(1e4,None),(1e-1,None),(1,10),(0.1,2),(0.1,2)],df['errV'],\\
+[False,False,True,True,True])
+```
+
+\end{enumerate}
+
 
 
 ## Installation
@@ -41,8 +103,6 @@ df
 
 - 3.  Some sample function
 ```python
-
-mond and mass function are based on Galaxies 2018, 6(3), 70; https://doi.org/10.3390/galaxies6030070
 
 def mass(r, M0, R0):
     return M0*(1- (1+(r/R0))*np.exp(-r/R0))
@@ -103,7 +163,7 @@ plt.savefig('1.pdf')
 ```
 
 
-References:
+## References:
 
 - SPARC Data can be obtained from here: http://astroweb.cwru.edu/SPARC/
 - Mond and Mass function are based on Galaxies 2018, 6(3), 70; https://doi.org/10.3390/galaxies6030070
