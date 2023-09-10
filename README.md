@@ -5,6 +5,7 @@
 [![test](https://github.com/amanmdesai/pygrc/actions/workflows/test.yaml/badge.svg)](https://github.com/amanmdesai/pygrc/actions/workflows/test.yaml)
 [![PyPI Package latest release](https://img.shields.io/pypi/v/pygrc.svg)](https://pypi.python.org/pypi/pygrc)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7546312.svg)](https://doi.org/10.5281/zenodo.7546312)
+[![JBI](https://img.shields.io/badge/Journal_of_Brief_Ideas-10.5281/zenodo.8092602-red.svg)](https://beta.briefideas.org/ideas/71d1533579769a11cae153150ce6f3ea)
 
 ## Author
 
